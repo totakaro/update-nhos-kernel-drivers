@@ -112,7 +112,7 @@ zcat /mnt/nhos/scripts.sh/modules64.gz | cpio -idmvu
 cp -v /mnt/root/boot/default/initrd.gz /mnt/root/boot/backup.gz
 
 # Repack the whole thing again after changes
-find . | cpio -o -R root:root | gzip -9 > /mnt/root/boot/default/initrd.gz
+find . | cpio -H newc -o -R root:root | gzip -9 > /mnt/root/boot/default/initrd.gz
 
 # Replace fallback as well
 cp -v /mnt/root/boot/default/initrd.gz /mnt/root/boot/fallback/initrd.gz
