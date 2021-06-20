@@ -65,7 +65,7 @@ if [ $? -eq 0 ]; then
   cd /tmp
   # Stop XOrg
   init 3
-  # Install required dependences by Nvidia
+  # Install required dependences to install drivers
   tce-load -wi pkg-config.tcz make.tcz gcc.tcz gcc_base-dev.tcz gcc_libs-dev.tcz gcc_libs.tcz glibc_base-dev.tcz linux-5.4_api_headers.tcz
   # Update to AMD GPU Pro 21.10 
   # wget https://github.com/totakaro/update-nhos-kernel-drivers/releases/download/v0.0.1/amdgpu-pro-21.10-1244864-ubuntu-18.04.tar.xz
