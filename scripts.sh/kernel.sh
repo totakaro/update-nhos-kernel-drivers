@@ -51,11 +51,11 @@
 # Check root https://stackoverflow.com/a/18216122
 if [ `id -u` -ne 0 ]; then
   echo "Please run as root"
-  exit 1
+  #exit 1
 fi
 
 # Stop NH mining
-killall nhm3 nbminer gminer lolminer sleep nhm_monitor
+# killall nhm3 nbminer gminer lolminer sleep nhm_monitor
 
 # Check if kernel is updated to install drivers (WIP)
 uname -r | grep "5.4.3-tinycore64"
@@ -109,13 +109,13 @@ zcat /mnt/root/boot/default/initrd.gz | cpio -idmv
 zcat /mnt/nhos/scripts.sh/modules64.gz | cpio -idmvu
 
 # Make a backup (debug only)
-cp -v /boot/default/initrd.gz /boot/backup.gz
+cp -v /mnt/root/boot/default/initrd.gz /mnt/root/boot/backup.gz
 
 # Repack the whole thing again after changes
-find . | cpio -o -c -R root:root | gzip -9 > /mnt/root/boot/default/initrd.gz
+find . | cpio -o -R root:root | gzip -9 > /mnt/root/boot/default/initrd.gz
 
 # Replace fallback as well
-cp -v mnt/root/boot/default/initrd.gz mnt/root/boot/fallback/initrd.gz
+cp -v /mnt/root/boot/default/initrd.gz /mnt/root/boot/fallback/initrd.gz
 
 # Reboot
 reboot
