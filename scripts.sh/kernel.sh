@@ -6,6 +6,48 @@
 
 # This scripts updates NHOS kernel required by AMD GPU Pro 21.10 and Nvidia 460.39 drivers
 
+# NHOS / Structure
+# |-- [4.0K]  EFI
+# |   `-- [4.0K]  BOOT
+# |       `-- [ 94K]  BOOTX64.EFI
+# |-- [4.0K]  apps
+# |   |-- [4.0K]  default
+# |   |   |-- [185M]  gminer.tcz
+# |   |   |-- [4.2M]  lolminer.tcz
+# |   |   |-- [ 35M]  nbminer.tcz
+# |   |   |-- [4.8M]  nhm3.tcz
+# |   |   `-- [168K]  nhos.tcz
+# |   `-- [4.0K]  fallback
+# |       |-- [185M]  gminer.tcz
+# |       |-- [4.2M]  lolminer.tcz
+# |       |-- [ 35M]  nbminer.tcz
+# |       |-- [4.8M]  nhm3.tcz
+# |       `-- [168K]  nhos.tcz
+# |-- [4.0K]  boot                    <<<<< This script updates this vmlinuz and initrd (whole system compressed in 437 Mb)
+# |   |-- [4.0K]  default
+# |   |   |-- [ 482]  boot.cfg
+# |   |   |-- [437M]  initrd.gz
+# |   |   `-- [5.3M]  vmlinuz
+# |   |-- [4.0K]  fallback
+# |   |   |-- [ 482]  boot.cfg
+# |   |   |-- [437M]  initrd.gz
+# |   |   `-- [5.3M]  vmlinuz
+# |   `-- [4.0K]  grub
+# |       |-- [4.0K]  fonts
+# |       |-- [ 931]  grub.cfg
+# |       |-- [1.0K]  grubenv
+# |       |-- [ 20K]  i386-pc
+# |       |-- [4.0K]  locale
+# |       |-- [4.0K]  themes
+# |       `-- [ 20K]  x86_64-efi
+# `-- [4.0K]  loader                   <<<<< Please replace Nasty GRUB, see:  https://github.com/totakaro/nhos-systemd-boot
+#     |-- [4.0K]  entries
+#     |   `-- [ 471]  nhos.conf
+#     |-- [  42]  loader.conf
+#     `-- [ 512]  random-seed
+# 
+# 16 directories, 22 files
+
 # Check root https://stackoverflow.com/a/18216122
 if [ `id -u` -ne 0 ]; then
   echo "Please run as root"
