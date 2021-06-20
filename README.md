@@ -8,6 +8,8 @@ This should add support for the latest GPUs like Radeon RX6900XT and others
 
 > ⚠️Note: this script is still work in progress
 
+For more info about boot scripts see official NicehashOS documentation [here](https://github.com/nicehash/NHOS/blob/master/nhos_boot_scripts.md).
+
 ## Roadmap
 
 - Make it work! 🚀
