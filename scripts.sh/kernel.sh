@@ -55,7 +55,7 @@ if [ `id -u` -ne 0 ]; then
 fi
 
 # Stop NH mining
-killall nhm3 nbminer gminer lolminer sh sleep nhm_monitor
+killall nhm3 nbminer gminer lolminer sleep nhm_monitor
 
 # Check if kernel is updated to install drivers (WIP)
 uname -r | grep "5.4.3-tinycore64"
