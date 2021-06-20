@@ -54,17 +54,29 @@ if [ `id -u` -ne 0 ]; then
   exit 1
 fi
 
+# Stop NH mining
+killall nhm3 nbminer gminer lolminer sh sleep
+
 # Check if kernel is updated to install drivers (WIP)
 uname -r | grep "5.4.3-tinycore64"
 if [ $? -eq 0 ]; then
+  echo "This part is is not ready yet"
+  exit
   cd /tmp
+  # Stop XOrg
+  init 3
+  # Install required dependences by Nvidia
+  tce-load -wi pkg-config.tcz make.tcz gcc.tcz gcc_base-dev.tcz gcc_libs-dev.tcz gcc_libs.tcz glibc_base-dev.tcz linux-5.4_api_headers.tcz
   # Update to AMD GPU Pro 21.10 
-  #wget 
-  #tar -Jxvf amdgpu-pro-21.10-1244864-ubuntu-18.04.tar.xz
-  #cd amdgpu-pro-21.10-1244864-ubuntu-18.04
-  #./amdgpu-pro-install -y --opencl=rocr,legacy,rocm --headless
-  # Update to Nvidia 460.39
-  #wget
+  # wget https://github.com/totakaro/update-nhos-kernel-drivers/releases/download/v0.0.1/amdgpu-pro-21.10-1244864-ubuntu-18.04.tar.xz
+  # tar -Jxvf amdgpu-pro-21.10-1244864-ubuntu-18.04.tar.xz
+  # cd amdgpu-pro-21.10-1244864-ubuntu-18.04
+  # chmod +x amdgpu-pro-install
+  # ./amdgpu-pro-install -y --opencl=rocr,legacy,rocm --headless
+  # wget https://github.com/totakaro/update-nhos-kernel-drivers/releases/download/v0.0.1/NVIDIA-Linux-x86_64-460.39.run
+  # chmod +x NVIDIA-Linux-x86_64-460.39.run
+  # Update to Nvidia 460.39 (ATTENTION monitor required to continue)
+  # ./NVIDIA-Linux-x86_64-460.39.run
 fi
 
 # Check if the script was already executed
