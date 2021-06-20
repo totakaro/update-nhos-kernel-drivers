@@ -118,7 +118,7 @@ find . | cpio -o -H newc -R root:root | gzip -9 > /mnt/root/boot/default/initrd.
 cp -v /mnt/root/boot/default/initrd.gz /mnt/root/boot/default/initrd.gz
 
 # Fix permissions
-chmod 755 /mnt/root/boot/default/initrd.gz /mnt/root/boot/default/initrd.gz
+chmod 755 /mnt/root/boot/default/initrd.gz /mnt/root/boot/fallback/initrd.gz
 
 # Reboot
 reboot
