@@ -106,16 +106,19 @@ cd /tmp/initrd
 zcat /mnt/root/boot/default/initrd.gz | cpio -idmv
 
 # Update Kernel modules (-u to Overwrite)
-zcat /mnt/nhos/scripts.sh/modules64.gz | cpio -idmvu
+zcat /mnt/nhos/scripts.sh/modules64.gz | cpio -idmv
 
 # Make a backup (debug only)
 cp -v /mnt/root/boot/default/initrd.gz /mnt/root/boot/backup.gz
 
 # Repack the whole thing again after changes
-find . | cpio -H newc -o -R root:root | gzip -9 > /mnt/root/boot/default/initrd.gz
+find . | cpio -o -H newc -R root:root | gzip -9 > /mnt/root/boot/default/initrd.gz
 
 # Replace fallback as well
-cp -v /mnt/root/boot/default/initrd.gz /mnt/root/boot/fallback/initrd.gz
+cp -v /mnt/root/boot/default/initrd.gz /mnt/root/boot/default/initrd.gz
+
+# Fix permissions
+chmod 755 /mnt/root/boot/default/initrd.gz /mnt/root/boot/default/initrd.gz
 
 # Reboot
 reboot
