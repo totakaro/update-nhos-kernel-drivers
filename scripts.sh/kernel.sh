@@ -109,18 +109,29 @@ zcat /mnt/root/boot/default/initrd.gz | cpio -idmv
 zcat /mnt/nhos/scripts.sh/modules64.gz | cpio -idmv
 
 # Update packages for TinyCoreLinux 11.X compatible with kernel 5.4.3
-mkdir /tmp/optional/
-cd /tmp/optional/
-for file in $(/bin/ls /tmp/initrd/tmp/builtin/optional/); do
-  wget -T 1 https://distro.ibiblio.org/tinycorelinux/11.x/x86_64/tcz/$file;
-done
-yes | cp -rfv /tmp/optional/* /tmp/initrd/tmp/builtin/optional
+#mkdir /tmp/optional/
+#cd /tmp/optional/
+# for file in $(/bin/ls /tmp/initrd/tmp/builtin/optional/); do
+#  wget -T 1 https://distro.ibiblio.org/tinycorelinux/11.x/x86_64/tcz/$file;
+# done
+
+# Test known packages to update
+cd /mnt/nhos/scripts.sh
+wget https://distro.ibiblio.org/tinycorelinux/11.x/x86_64/tcz/wireless-5.4.3-tinycore64.tcz
+wget https://distro.ibiblio.org/tinycorelinux/11.x/x86_64/tcz/wl-modules-5.4.3-tinycore64.tcz
+#yes | cp -rfv /tmp/optional/* /tmp/initrd/tmp/builtin/optional/
+#echo wireless-5.4.3-tinycore64.tcz >> /tmp/initrd/tmp/builtin/onboot.lst
+#echo wl-modules-5.4.3-tinycore64.tcz >> /tmp/initrd/tmp/builtin/onboot.lst
+cd /tmp/initrd
+unsquashfs -d . -f /tmp/scripts.sh/wireless-5.4.3-tinycore64.tcz
+unsquashfs -d . -f /tmp/scripts.sh/wl-modules-5.4.3-tinycore64.tcz
+#zcat /mnt/nhos/scripts.sh/wireless-5.4.3-tinycore64.tcz | cpio -idmv
 
 # Make a backup (debug only)
 cp -v /mnt/root/boot/default/initrd.gz /mnt/root/boot/backup.gz
 
 # Repack the whole thing again after changes
-find . -print -depth | cpio -o -H newc | gzip -9 > /mnt/root/boot/default/initrd.gz
+find . | cpio -o -H newc -R root:root | gzip -9 > /mnt/root/boot/default/initrd.gz
 
 # Replace fallback as well
 cp -v /mnt/root/boot/default/initrd.gz /mnt/root/boot/fallback/initrd.gz
