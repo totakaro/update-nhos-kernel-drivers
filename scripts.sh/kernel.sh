@@ -51,7 +51,7 @@
 # Check root https://stackoverflow.com/a/18216122
 if [ `id -u` -ne 0 ]; then
   echo "Please run as root"
-  #exit 1
+  exit 1
 fi
 
 # Stop NH mining
@@ -108,11 +108,19 @@ zcat /mnt/root/boot/default/initrd.gz | cpio -idmv
 # Update Kernel modules (-u to Overwrite)
 zcat /mnt/nhos/scripts.sh/modules64.gz | cpio -idmv
 
+# Update packages for TinyCoreLinux 11.X compatible with kernel 5.4.3
+mkdir /tmp/optional/
+cd /tmp/optional/
+for file in $(/bin/ls /tmp/initrd/tmp/builtin/optional/); do
+  wget -T 1 https://distro.ibiblio.org/tinycorelinux/11.x/x86_64/tcz/$file;
+done
+yes | cp -rfv /tmp/optional/* /tmp/initrd/tmp/builtin/optional
+
 # Make a backup (debug only)
 cp -v /mnt/root/boot/default/initrd.gz /mnt/root/boot/backup.gz
 
 # Repack the whole thing again after changes
-find . | cpio -o -H newc -R root:root | gzip -9 > /mnt/root/boot/default/initrd.gz
+find . -print -depth | cpio -o -H newc | gzip -9 > /mnt/root/boot/default/initrd.gz
 
 # Replace fallback as well
 cp -v /mnt/root/boot/default/initrd.gz /mnt/root/boot/fallback/initrd.gz
