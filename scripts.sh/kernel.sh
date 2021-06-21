@@ -116,15 +116,15 @@ zcat /mnt/nhos/scripts.sh/modules64.gz | cpio -idmv
 # done
 
 # Test known packages to update
-cd /mnt/nhos/scripts.sh
+cd /tmp
 wget https://distro.ibiblio.org/tinycorelinux/11.x/x86_64/tcz/wireless-5.4.3-tinycore64.tcz
 wget https://distro.ibiblio.org/tinycorelinux/11.x/x86_64/tcz/wl-modules-5.4.3-tinycore64.tcz
 #yes | cp -rfv /tmp/optional/* /tmp/initrd/tmp/builtin/optional/
 #echo wireless-5.4.3-tinycore64.tcz >> /tmp/initrd/tmp/builtin/onboot.lst
 #echo wl-modules-5.4.3-tinycore64.tcz >> /tmp/initrd/tmp/builtin/onboot.lst
 cd /tmp/initrd
-unsquashfs -d . -f /tmp/scripts.sh/wireless-5.4.3-tinycore64.tcz
-unsquashfs -d . -f /tmp/scripts.sh/wl-modules-5.4.3-tinycore64.tcz
+unsquashfs -d . -f /tmp/wireless-5.4.3-tinycore64.tcz
+unsquashfs -d . -f /tmp/wl-modules-5.4.3-tinycore64.tcz
 #zcat /mnt/nhos/scripts.sh/wireless-5.4.3-tinycore64.tcz | cpio -idmv
 
 # Make a backup (debug only)
